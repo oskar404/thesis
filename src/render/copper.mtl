@@ -1,0 +1,29 @@
+#
+# Material:    Copper
+# Source:
+# reflectance: Thermophysical Properties of Matter (1970)
+#             v.7, p.162, curve #4 (from Cook's thesis)
+#  n,k:   Fundamentals of Optics, Jenkins and White (1976)
+#             table 25A, p538 (original source R.S.Minor)
+#             measured at 589nm
+# Conditions. as received
+# Temperature: 298 K
+# Incident angle: 9
+# Solid angle: 2pi
+#         
+conductor
+#
+n 0.617
+k 2.630
+380 0.070
+420 0.095
+460 0.140
+500 0.205
+540 0.265
+560 0.335
+580 0.490
+600 0.615
+620 0.670
+660 0.725
+700 0.755
+#         

@@ -1,0 +1,26 @@
+#
+# Material:       Glass - Borosilicate Crown - 3
+#   Type            511/634
+# Source:
+# reflectance: Computed from index of refraction
+#  n,k:   Fundamentals of Optics, Jenkins and White (1976)
+#             Table 23B - Refractive Indices and
+#             Dispersions for Several Common Types of
+#             Optical Glass
+# Conditions: polished
+# Temperature:
+# Incident angle: normal
+# Solid angle:      
+#        
+dielectric
+# index of refraction at 589.2nm
+n 1.51124
+399 0.043291
+434 0.042757
+482 0.042178
+509 0.041975
+533 0.041784
+589 0.041445
+644 0.041178
+656 0.041134
+#
