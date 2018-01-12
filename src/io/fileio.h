@@ -10,7 +10,7 @@
 
 
 /*
-	fileio.h	- Headerfile for fileio.c
+    fileio.h    - Headerfile for fileio.c
 */
 
 

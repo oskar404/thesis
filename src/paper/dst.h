@@ -10,7 +10,7 @@
 
 
 /*
-	create_r.h	- Headerfile for create_r.c
+    create_r.h  - Headerfile for create_r.c
 */
 
 
@@ -23,7 +23,7 @@
 
 typedef unsigned char DSTbuf;
 
- 
+
 #define DST_MAX_POINTS 1024          /* Max number of points in a file */
 
 

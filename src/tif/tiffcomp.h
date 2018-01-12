@@ -25,7 +25,7 @@
  */
 
 #ifndef _COMPAT_
-#define	_COMPAT_
+#define _COMPAT_
 /*
  * This file contains a hodgepodge of definitions and
  * declarations that are needed to provide compatibility
@@ -44,8 +44,8 @@
  */
 #if !defined(USE_PROTOTYPES)
 #if defined(__STDC__) || defined(__EXTENDED__) || defined(c_plusplus) || defined(__cplusplus)
-#define	USE_PROTOTYPES	1
-#define	USE_CONST	1
+#define USE_PROTOTYPES  1
+#define USE_CONST   1
 #endif /* __STDC__ || __EXTENDED__ || c_plusplus || __cplusplus */
 #endif /* !defined(USE_PROTOTYPES) */
 
@@ -55,7 +55,7 @@
  */
 #if !USE_CONST
 #if !defined(const)
-#define	const
+#define const
 #endif
 #endif
 
@@ -85,7 +85,7 @@
 #if defined(THINK_C) || defined(applec) || defined(MSDOS)
 #include <stdlib.h>
 typedef long off_t;
-#define	BSDTYPES
+#define BSDTYPES
 #endif
 
 /*
@@ -95,14 +95,14 @@ typedef long off_t;
 #if defined(SYSV)
 #include <unistd.h>
 #endif
-#define	L_SET	SEEK_SET
-#define	L_INCR	SEEK_CUR
-#define	L_XTND	SEEK_END
+#define L_SET   SEEK_SET
+#define L_INCR  SEEK_CUR
+#define L_XTND  SEEK_END
 #endif /* defined(SYSV) || defined(VMS) */
 #ifndef L_SET
-#define L_SET	0
-#define L_INCR	1
-#define L_XTND	2
+#define L_SET   0
+#define L_INCR  1
+#define L_XTND  2
 #endif
 
 /*
@@ -117,10 +117,10 @@ typedef long off_t;
  * then define BSDTYPES in your Makefile.
  */
 #if defined(BSDTYPES) || defined(MSDOS)
-typedef	unsigned char u_char;
-typedef	unsigned short u_short;
-typedef	unsigned int u_int;
-typedef	unsigned long u_long;
+typedef unsigned char u_char;
+typedef unsigned short u_short;
+typedef unsigned int u_int;
+typedef unsigned long u_long;
 #endif
 
 /*
@@ -128,16 +128,16 @@ typedef	unsigned long u_long;
  * compatibility related and should probably go in tiffiop.h.
  */
 #ifndef ReadOK
-#define	ReadOK(tif, buf, size) \
-	(TIFFReadFile(tif, (char *)buf, size) == size)
+#define ReadOK(tif, buf, size) \
+    (TIFFReadFile(tif, (char *)buf, size) == size)
 #endif
 #ifndef SeekOK
-#define	SeekOK(tif, off) \
-	(TIFFSeekFile(tif, (long)off, L_SET) == (long)off)
+#define SeekOK(tif, off) \
+    (TIFFSeekFile(tif, (long)off, L_SET) == (long)off)
 #endif
 #ifndef WriteOK
-#define	WriteOK(tif, buf, size) \
-	(TIFFWriteFile(tif, (char *)buf, size) == size)
+#define WriteOK(tif, buf, size) \
+    (TIFFWriteFile(tif, (char *)buf, size) == size)
 #endif
 
 /*
@@ -155,16 +155,16 @@ typedef double dblparam_t;
  * Varargs parameter list handling...YECH!!!!
  */
 #if defined(__STDC__) && !defined(USE_VARARGS)
-#define	USE_VARARGS	0
+#define USE_VARARGS 0
 #endif
 
 #if defined(USE_VARARGS)
 #if USE_VARARGS
 #include <varargs.h>
-#define	VA_START(ap, parmN)	va_start(ap)
+#define VA_START(ap, parmN) va_start(ap)
 #else
 #include <stdarg.h>
-#define	VA_START(ap, parmN)	va_start(ap, parmN)
+#define VA_START(ap, parmN) va_start(ap, parmN)
 #endif
 #endif /* defined(USE_VARARGS) */
 
@@ -173,35 +173,35 @@ typedef double dblparam_t;
  * prototypes--according to the definition of USE_PROTOTYPES.
  */
 #if USE_PROTOTYPES
-#define	DECLARE1(f,t1,a1)		f(t1 a1)
-#define	DECLARE2(f,t1,a1,t2,a2)		f(t1 a1, t2 a2)
-#define	DECLARE3(f,t1,a1,t2,a2,t3,a3)	f(t1 a1, t2 a2, t3 a3)
-#define	DECLARE4(f,t1,a1,t2,a2,t3,a3,t4,a4)\
-	f(t1 a1, t2 a2, t3 a3, t4 a4)
-#define	DECLARE5(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5)\
-	f(t1 a1, t2 a2, t3 a3, t4 a4, t5 a5)
-#define	DECLARE6(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5,t6,a6)\
-	f(t1 a1, t2 a2, t3 a3, t4 a4, t5 a5, t6 a6)
-#define	DECLARE1V(f,t1,a1)		f(t1 a1 ...)
-#define	DECLARE2V(f,t1,a1,t2,a2)	f(t1 a1, t2 a2, ...)
-#define	DECLARE3V(f,t1,a1,t2,a2,t3,a3)	f(t1 a1, t2 a2, t3 a3, ...)
+#define DECLARE1(f,t1,a1)       f(t1 a1)
+#define DECLARE2(f,t1,a1,t2,a2)     f(t1 a1, t2 a2)
+#define DECLARE3(f,t1,a1,t2,a2,t3,a3)   f(t1 a1, t2 a2, t3 a3)
+#define DECLARE4(f,t1,a1,t2,a2,t3,a3,t4,a4)\
+    f(t1 a1, t2 a2, t3 a3, t4 a4)
+#define DECLARE5(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5)\
+    f(t1 a1, t2 a2, t3 a3, t4 a4, t5 a5)
+#define DECLARE6(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5,t6,a6)\
+    f(t1 a1, t2 a2, t3 a3, t4 a4, t5 a5, t6 a6)
+#define DECLARE1V(f,t1,a1)      f(t1 a1 ...)
+#define DECLARE2V(f,t1,a1,t2,a2)    f(t1 a1, t2 a2, ...)
+#define DECLARE3V(f,t1,a1,t2,a2,t3,a3)  f(t1 a1, t2 a2, t3 a3, ...)
 #else
-#define	DECLARE1(f,t1,a1)		f(a1) t1 a1;
-#define	DECLARE2(f,t1,a1,t2,a2)		f(a1,a2) t1 a1; t2 a2;
-#define	DECLARE3(f,t1,a1,t2,a2,t3,a3)	f(a1, a2, a3) t1 a1; t2 a2; t3 a3;
-#define	DECLARE4(f,t1,a1,t2,a2,t3,a3,t4,a4) \
-	f(a1, a2, a3, a4) t1 a1; t2 a2; t3 a3; t4 a4;
-#define	DECLARE5(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5)\
-	f(a1, a2, a3, a4, a5) t1 a1; t2 a2; t3 a3; t4 a4; t5 a5;
-#define	DECLARE6(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5,t6,a6)\
-	f(a1, a2, a3, a4, a5, a6) t1 a1; t2 a2; t3 a3; t4 a4; t5 a5; t6 a6;
+#define DECLARE1(f,t1,a1)       f(a1) t1 a1;
+#define DECLARE2(f,t1,a1,t2,a2)     f(a1,a2) t1 a1; t2 a2;
+#define DECLARE3(f,t1,a1,t2,a2,t3,a3)   f(a1, a2, a3) t1 a1; t2 a2; t3 a3;
+#define DECLARE4(f,t1,a1,t2,a2,t3,a3,t4,a4) \
+    f(a1, a2, a3, a4) t1 a1; t2 a2; t3 a3; t4 a4;
+#define DECLARE5(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5)\
+    f(a1, a2, a3, a4, a5) t1 a1; t2 a2; t3 a3; t4 a4; t5 a5;
+#define DECLARE6(f,t1,a1,t2,a2,t3,a3,t4,a4,t5,a5,t6,a6)\
+    f(a1, a2, a3, a4, a5, a6) t1 a1; t2 a2; t3 a3; t4 a4; t5 a5; t6 a6;
 #if USE_VARARGS
-#define	DECLARE1V(f,t1,a1) \
-	f(a1, va_alist) t1 a1; va_dcl
-#define	DECLARE2V(f,t1,a1,t2,a2) \
-	f(a1, a2, va_alist) t1 a1; t2 a2; va_dcl
-#define	DECLARE3V(f,t1,a1,t2,a2,t3,a3) \
-	f(a1, a2, a3, va_alist) t1 a1; t2 a2; t3 a3; va_dcl
+#define DECLARE1V(f,t1,a1) \
+    f(a1, va_alist) t1 a1; va_dcl
+#define DECLARE2V(f,t1,a1,t2,a2) \
+    f(a1, a2, va_alist) t1 a1; t2 a2; va_dcl
+#define DECLARE3V(f,t1,a1,t2,a2,t3,a3) \
+    f(a1, a2, a3, va_alist) t1 a1; t2 a2; t3 a3; va_dcl
 #else
 "Help, I don't know how to handle this case: !USE_PROTOTYPES and !USE_VARARGS?"
 #endif

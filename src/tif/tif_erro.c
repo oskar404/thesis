@@ -35,10 +35,10 @@ static char rcsid[] = "$Header: /usr/people/sam/tiff/libtiff/RCS/tif_error.c,v 1
 static void
 DECLARE3(defaultHandler, const char*, module, const char*, fmt, va_list, ap)
 {
-	if (module != NULL)
-		fprintf(stderr, "%s: ", module);
-	vfprintf(stderr, fmt, ap);
-	fprintf(stderr, ".\n");
+    if (module != NULL)
+        fprintf(stderr, "%s: ", module);
+    vfprintf(stderr, fmt, ap);
+    fprintf(stderr, ".\n");
 }
 
 static TIFFErrorHandler _errorHandler = defaultHandler;
@@ -46,20 +46,20 @@ static TIFFErrorHandler _errorHandler = defaultHandler;
 TIFFErrorHandler
 DECLARE1(TIFFSetErrorHandler, TIFFErrorHandler, handler)
 {
-	TIFFErrorHandler prev = _errorHandler;
-	_errorHandler = handler;
-	return (prev);
+    TIFFErrorHandler prev = _errorHandler;
+    _errorHandler = handler;
+    return (prev);
 }
 
 void
 /*VARARGS2*/
 DECLARE2V(TIFFError, const char*, module, const char*, fmt)
 {
-	if (_errorHandler) {
-		va_list ap;
-		VA_START(ap, fmt);
-		(*_errorHandler)(module, fmt, ap);
-		va_end(ap);
-	}
+    if (_errorHandler) {
+        va_list ap;
+        VA_START(ap, fmt);
+        (*_errorHandler)(module, fmt, ap);
+        va_end(ap);
+    }
 }
 

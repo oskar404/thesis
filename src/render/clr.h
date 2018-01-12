@@ -2,13 +2,13 @@
 /*                            clr.h                              */
 /*****************************************************************/
 
-/*         
-  	iclude file for the color utilities
+/*
+    iclude file for the color utilities
 */
-         
+
 #ifndef __CLR_H__
 #define __CLR_H__
-         
+
 
 
 #ifndef TRUE
@@ -18,28 +18,28 @@
 #ifndef FALSE
 #define FALSE 0
 #endif /* FALSE */
-         
+
 
 #define CLR_SAMPLE_MEYER 0
 #define CLR_SAMPLE_HALL  1
-         
 
 
-/* 
-	common color constructs
+
+/*
+    common color constructs
 */
-         
+
 typedef struct {double r, g, b;}   CLR_RGB;
 typedef struct {double x, y, z;}   CLR_XYZ;
 typedef struct {double l, a, b;}   CLR_LAB;
 typedef struct {double l, u, v;}   CLR_LUV;
-         
+
 
 
 /*
-	color routine declarations
+    color routine declarations
 */
-         
+
 int  ClrInit(int,int,CLR_XYZ []);
 int  ClrExit(void);
 int  ClrReadMtl(char *,int *,double *,double *,double *);

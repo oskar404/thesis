@@ -10,7 +10,7 @@
 
 
 /*
-	Picture.h	- Headerfile for Picture.c
+    Picture.h   - Headerfile for Picture.c
 */
 
 
@@ -34,7 +34,7 @@ Logical PictureChangeDotSize(double);
 Logical PictureChangeSize(double,double);
 Logical PictureIllumModel(int);
 Logical PictureUseInk(void);
-Logical	PictureViewDirection(double);
+Logical PictureViewDirection(double);
 
 double PictureGetDotSize(void);
 

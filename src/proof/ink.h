@@ -10,7 +10,7 @@
 
 
 /*
-	Ink.h	- Headerfile for Ink.c
+    Ink.h   - Headerfile for Ink.c
 */
 
 

@@ -41,42 +41,42 @@ static char rcsid[] = "$Header: /usr/people/sam/tiff/libtiff/RCS/tif_dumpmode.c,
 static int
 DECLARE4(DumpModeEncode, TIFF*, tif, u_char*, pp, u_long, cc, u_int, s)
 {
-	/*
-	 * This may be overzealous, but avoids having to
-	 * worry about byte alignment for the (potential)
-	 * byte-swapping work below.
-	 */
-	if (tif->tif_rawcc + cc > tif->tif_rawdatasize)
-		if (!TIFFFlushData1(tif))
-			return (-1);
-	while (cc > 0) {
-		int n;
-		if ((n = cc) > tif->tif_rawdatasize)
-			n = tif->tif_rawdatasize;
-		memcpy(tif->tif_rawcp, pp, n);
-		if (tif->tif_flags & TIFF_SWAB) {
-			switch (tif->tif_dir.td_bitspersample) {
-			case 16:
-				assert((n & 3) == 0);
-				TIFFSwabArrayOfShort((u_short *)tif->tif_rawcp,
-				    n/2);
-				break;
-			case 32:
-				assert((n & 15) == 0);
-				TIFFSwabArrayOfLong((u_long *)tif->tif_rawcp,
-				    n/4);
-				break;
-			}
-		}
-		tif->tif_rawcp += n;
-		tif->tif_rawcc += n;
-		pp += n;
-		cc -= n;
-		if (tif->tif_rawcc >= tif->tif_rawdatasize &&
-		    !TIFFFlushData1(tif))
-			return (-1);
-	}
-	return (1);
+    /*
+     * This may be overzealous, but avoids having to
+     * worry about byte alignment for the (potential)
+     * byte-swapping work below.
+     */
+    if (tif->tif_rawcc + cc > tif->tif_rawdatasize)
+        if (!TIFFFlushData1(tif))
+            return (-1);
+    while (cc > 0) {
+        int n;
+        if ((n = cc) > tif->tif_rawdatasize)
+            n = tif->tif_rawdatasize;
+        memcpy(tif->tif_rawcp, pp, n);
+        if (tif->tif_flags & TIFF_SWAB) {
+            switch (tif->tif_dir.td_bitspersample) {
+            case 16:
+                assert((n & 3) == 0);
+                TIFFSwabArrayOfShort((u_short *)tif->tif_rawcp,
+                    n/2);
+                break;
+            case 32:
+                assert((n & 15) == 0);
+                TIFFSwabArrayOfLong((u_long *)tif->tif_rawcp,
+                    n/4);
+                break;
+            }
+        }
+        tif->tif_rawcp += n;
+        tif->tif_rawcc += n;
+        pp += n;
+        cc -= n;
+        if (tif->tif_rawcc >= tif->tif_rawdatasize &&
+            !TIFFFlushData1(tif))
+            return (-1);
+    }
+    return (1);
 }
 
 /*
@@ -85,33 +85,33 @@ DECLARE4(DumpModeEncode, TIFF*, tif, u_char*, pp, u_long, cc, u_int, s)
 static int
 DECLARE4(DumpModeDecode, TIFF*, tif, u_char*, buf, u_long, cc, u_int, s)
 {
-	if (tif->tif_rawcc < cc) {
-		TIFFError(tif->tif_name,
-		    "DumpModeDecode: Not enough data for scanline %d",
-		    tif->tif_row);
-		return (0);
-	}
-	/*
-	 * Avoid copy if client has setup raw
-	 * data buffer to avoid extra copy.
-	 */
-	if (tif->tif_rawcp != (char*) buf)
-		memcpy(buf, tif->tif_rawcp, cc);
-	if (tif->tif_flags & TIFF_SWAB) {
-		switch (tif->tif_dir.td_bitspersample) {
-		case 16:
-			assert((cc & 3) == 0);
-			TIFFSwabArrayOfShort((u_short *)buf, cc/2);
-			break;
-		case 32:
-			assert((cc & 15) == 0);
-			TIFFSwabArrayOfLong((u_long *)buf, cc/4);
-			break;
-		}
-	}
-	tif->tif_rawcp += cc;
-	tif->tif_rawcc -= cc;
-	return (1);
+    if (tif->tif_rawcc < cc) {
+        TIFFError(tif->tif_name,
+            "DumpModeDecode: Not enough data for scanline %d",
+            tif->tif_row);
+        return (0);
+    }
+    /*
+     * Avoid copy if client has setup raw
+     * data buffer to avoid extra copy.
+     */
+    if (tif->tif_rawcp != (char*) buf)
+        memcpy(buf, tif->tif_rawcp, cc);
+    if (tif->tif_flags & TIFF_SWAB) {
+        switch (tif->tif_dir.td_bitspersample) {
+        case 16:
+            assert((cc & 3) == 0);
+            TIFFSwabArrayOfShort((u_short *)buf, cc/2);
+            break;
+        case 32:
+            assert((cc & 15) == 0);
+            TIFFSwabArrayOfLong((u_long *)buf, cc/4);
+            break;
+        }
+    }
+    tif->tif_rawcp += cc;
+    tif->tif_rawcc -= cc;
+    return (1);
 }
 
 /*
@@ -120,9 +120,9 @@ DECLARE4(DumpModeDecode, TIFF*, tif, u_char*, buf, u_long, cc, u_int, s)
 static int
 DECLARE2(DumpModeSeek, TIFF*, tif, u_long, nrows)
 {
-	tif->tif_rawcp += nrows * tif->tif_scanlinesize;
-	tif->tif_rawcc -= nrows * tif->tif_scanlinesize;
-	return (1);
+    tif->tif_rawcp += nrows * tif->tif_scanlinesize;
+    tif->tif_rawcc -= nrows * tif->tif_scanlinesize;
+    return (1);
 }
 
 /*
@@ -131,13 +131,13 @@ DECLARE2(DumpModeSeek, TIFF*, tif, u_long, nrows)
 int
 DECLARE1(TIFFInitDumpMode, TIFF*, tif)
 {
-	tif->tif_decoderow = DumpModeDecode;
-	tif->tif_decodestrip = DumpModeDecode;
-	tif->tif_decodetile = DumpModeDecode;
-	tif->tif_encoderow = DumpModeEncode;
-	tif->tif_encodestrip = DumpModeEncode;
-	tif->tif_encodetile = DumpModeEncode;
-	tif->tif_seek = DumpModeSeek;
-	return (1);
+    tif->tif_decoderow = DumpModeDecode;
+    tif->tif_decodestrip = DumpModeDecode;
+    tif->tif_decodetile = DumpModeDecode;
+    tif->tif_encoderow = DumpModeEncode;
+    tif->tif_encodestrip = DumpModeEncode;
+    tif->tif_encodetile = DumpModeEncode;
+    tif->tif_seek = DumpModeSeek;
+    return (1);
 }
 

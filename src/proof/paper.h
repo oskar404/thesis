@@ -10,7 +10,7 @@
 
 
 /*
-	Paper.h	- Headerfile for Paper.c
+    Paper.h - Headerfile for Paper.c
 */
 
 

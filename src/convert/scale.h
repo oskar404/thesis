@@ -10,7 +10,7 @@
 
 
 /*
-	Scale.h	- Headerfile for main program Scale.c
+    Scale.h - Headerfile for main program Scale.c
 */
 
 

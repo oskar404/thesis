@@ -34,19 +34,19 @@ static char rcsid[] = "$Header: /usr/people/sam/tiff/libtiff/RCS/tif_close.c,v 1
 void
 DECLARE1(TIFFClose, TIFF*, tif)
 {
-	if (tif->tif_mode != O_RDONLY)
-		/*
-		 * Flush buffered data and directory (if dirty).
-		 */
-		TIFFFlush(tif);
-	if (tif->tif_cleanup)
-		(*tif->tif_cleanup)(tif);
-	TIFFFreeDirectory(tif);
-	if (tif->tif_rawdata && (tif->tif_flags&TIFF_MYBUFFER))
-		_TIFFfree(tif->tif_rawdata);
-	if (isMapped(tif))
-		TIFFUnmapFileContents(tif, tif->tif_base, tif->tif_size);
-	(void) TIFFCloseFile(tif);
-	_TIFFfree((char *)tif);
+    if (tif->tif_mode != O_RDONLY)
+        /*
+         * Flush buffered data and directory (if dirty).
+         */
+        TIFFFlush(tif);
+    if (tif->tif_cleanup)
+        (*tif->tif_cleanup)(tif);
+    TIFFFreeDirectory(tif);
+    if (tif->tif_rawdata && (tif->tif_flags&TIFF_MYBUFFER))
+        _TIFFfree(tif->tif_rawdata);
+    if (isMapped(tif))
+        TIFFUnmapFileContents(tif, tif->tif_base, tif->tif_size);
+    (void) TIFFCloseFile(tif);
+    _TIFFfree((char *)tif);
 }
 

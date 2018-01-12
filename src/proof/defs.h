@@ -11,7 +11,7 @@
 
 
 /*
-	Defs.h	- Headerfile for common definitions for whole program
+    Defs.h  - Headerfile for common definitions for whole program
 */
 
 
@@ -123,7 +123,7 @@
 -P   Uses the Phong illumination model for rendering\n\
 -B   Uses the Blinn illumination model for rendering\n\
 -V   Defines the view direction according to picture \n\
-	 normal. Default is zero max is 90 degrees."
+     normal. Default is zero max is 90 degrees."
 
 
 #endif /* __DEFS__ */

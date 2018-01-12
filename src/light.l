@@ -1,6 +1,6 @@
 #
 # This is an example file of Ligth structure
-# 
+#
 # Comments strats always with a character '#'
 #
 #

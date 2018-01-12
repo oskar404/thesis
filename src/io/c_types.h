@@ -12,7 +12,7 @@
 
 
 /*
-		c_types.h  - Headerfile for common types for whole program
+        c_types.h  - Headerfile for common types for whole program
 */
 
 
@@ -23,7 +23,7 @@
 
 /* Data structure types used in module Message */
 
-typedef char * String; 
+typedef char * String;
 
 
 /* Logical value TRUE or FALSE */
@@ -35,7 +35,7 @@ typedef int Logical;
 #define TRUE 1
 #endif /* TRUE */
 
-#ifndef FALSE 
+#ifndef FALSE
 #define FALSE 0
 #endif /* FALSE */
 

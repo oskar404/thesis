@@ -10,7 +10,7 @@
 
 
 /*
-	Scale.c	- Main program for scaling
+    Scale.c - Main program for scaling
 */
 
 
@@ -59,106 +59,106 @@ static Logical AnalyzeOptions(int);
 
 /**************************************************************
 
-	int main(int argc,char **argv)
+    int main(int argc,char **argv)
 
-	Program Main function
+    Program Main function
 
 */
 
 int main(int argc,char **argv)
 {
-	ProgramName=argv[0];
-	ProgramUsage=USAGE_STRING;
-	InitProgram();
-	ReadArguments(argc,argv);
-	if(ConvertFile(FileIn,FileOut,Origo,Scale,IntType)==FALSE)
-		return ERROR;
-	return OK;
+    ProgramName=argv[0];
+    ProgramUsage=USAGE_STRING;
+    InitProgram();
+    ReadArguments(argc,argv);
+    if(ConvertFile(FileIn,FileOut,Origo,Scale,IntType)==FALSE)
+        return ERROR;
+    return OK;
 }
 
 
 
 /**************************************************************
-	Internal functions
+    Internal functions
 **************************************************************/
 
 
 
 /**************************************************************
 
-	static Logical InitProgram()
+    static Logical InitProgram()
 
-	Initializes the picture and message modules
+    Initializes the picture and message modules
 
 */
 
 static Logical InitProgram()
 {
-	MessageInit();
-	FileIn=INPUT_FILE;
-	FileOut=OUTPUT_FILE;
-	Origo=ORIGO;
-	Scale=SCALE;
-	return TRUE;
+    MessageInit();
+    FileIn=INPUT_FILE;
+    FileOut=OUTPUT_FILE;
+    Origo=ORIGO;
+    Scale=SCALE;
+    return TRUE;
 }
 
 
 
 /**************************************************************
 
-	static void ReadArguments(int argc,char **argv)
+    static void ReadArguments(int argc,char **argv)
 
-	Reads arguments and analyzes them
+    Reads arguments and analyzes them
 
 */
 
 static void ReadArguments(int argc,char **argv)
 {
-	int c;
+    int c;
 
-	while((c=getopt(argc,argv,OPTIONS))!=EOF) /* This while loop gets     */
-		{                                     /* command line options and */
-		if(AnalyzeOptions(c)==FALSE)          /* analyzes them            */
-			MessageUsage();
-		}
-	return;
+    while((c=getopt(argc,argv,OPTIONS))!=EOF) /* This while loop gets     */
+        {                                     /* command line options and */
+        if(AnalyzeOptions(c)==FALSE)          /* analyzes them            */
+            MessageUsage();
+        }
+    return;
 }
 
 
 
 /**************************************************************
 
-	static Logical AnalyzeOptions(int option_letter)
+    static Logical AnalyzeOptions(int option_letter)
 
-	This function analyzes option letters and if there are
-	any values it saves them for future use.
+    This function analyzes option letters and if there are
+    any values it saves them for future use.
 
 */
 
 static Logical AnalyzeOptions(int option_letter)
 {
-	switch(option_letter)
-		{
-		case 'i':       /* Input file name */
-			FileIn=optarg;
-			break;
-		case 'o':       /* Output file name */
-			FileOut=optarg;
-			break;
-		case 'O':       /* Origo */
-			Origo=atof(optarg);
-			break;
-		case 'S':       /* Scale */
-			Scale=atof(optarg);
-			break;
-		case 'I':       /* Scale */
-			IntType=TRUE;
-			break;
-		case '?':
-		dedfault:
-			return FALSE;
-		}
-	return TRUE;
+    switch(option_letter)
+        {
+        case 'i':       /* Input file name */
+            FileIn=optarg;
+            break;
+        case 'o':       /* Output file name */
+            FileOut=optarg;
+            break;
+        case 'O':       /* Origo */
+            Origo=atof(optarg);
+            break;
+        case 'S':       /* Scale */
+            Scale=atof(optarg);
+            break;
+        case 'I':       /* Scale */
+            IntType=TRUE;
+            break;
+        case '?':
+        dedfault:
+            return FALSE;
+        }
+    return TRUE;
 }
 
 

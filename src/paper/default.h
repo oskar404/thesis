@@ -10,8 +10,8 @@
 
 
 /*
-	default.h	- Default values for creatin paper structure
-				  file.
+    default.h   - Default values for creatin paper structure
+                  file.
 */
 
 

@@ -10,7 +10,7 @@
 
 
 /*
-	Message.c	- Handles screen messages
+    Message.c   - Handles screen messages
 */
 
 
@@ -32,9 +32,9 @@ static FILE           *fpout;
 
 void MessageInit(void)
 {
-	fperr = stderr;
+    fperr = stderr;
     fpout = stdout;
-	return;
+    return;
 }
 
 
@@ -43,9 +43,9 @@ void MessageInit(void)
 
 void MessageExit(void)
 {
-	fperr=NULL;
+    fperr=NULL;
     fpout=NULL;
-	return;
+    return;
 }
 
 
@@ -55,7 +55,7 @@ void MessageExit(void)
 void MessagePrint(String str)
 {
     fprintf(fpout, "%s\n",str);
-	return;
+    return;
 }
 
 
@@ -65,7 +65,7 @@ void MessagePrint(String str)
 void MessageNumber(String str,int numb)
 {
     fprintf(fpout, "%s %d\n",str,numb);
-	return;
+    return;
 }
 
 
@@ -74,7 +74,7 @@ void MessageNumber(String str,int numb)
 
 void MessageWarning(String str)
 {
-	fprintf(fperr, "%s: %s\n",ProgramName,str);
+    fprintf(fperr, "%s: %s\n",ProgramName,str);
     return;
 }
 
@@ -84,7 +84,7 @@ void MessageWarning(String str)
 
 void MessageWarning2(String str1,String str2)
 {
-	fprintf(fperr, "%s: %s %s\n",ProgramName,str1,str2);
+    fprintf(fperr, "%s: %s %s\n",ProgramName,str1,str2);
     return;
 }
 
@@ -94,8 +94,8 @@ void MessageWarning2(String str1,String str2)
 
 void MessageError(String str)
 {
-	fprintf(fperr, "%s: %s\n",ProgramName,str);
-	exit(-1);
+    fprintf(fperr, "%s: %s\n",ProgramName,str);
+    exit(-1);
 }
 
 
@@ -104,8 +104,8 @@ void MessageError(String str)
 
 void MessageUsage(void)
 {
-	fprintf(fperr, "Usage: %s [options]\n",ProgramName);
-	fprintf(fperr, "%s\n",ProgramUsage);
-	exit(-1);
+    fprintf(fperr, "Usage: %s [options]\n",ProgramName);
+    fprintf(fperr, "%s\n",ProgramUsage);
+    exit(-1);
 }
 

@@ -10,7 +10,7 @@
 
 
 /*
-	Fileio.c	- Module for handling file io
+    Fileio.c    - Module for handling file io
 */
 
 
@@ -31,11 +31,11 @@
 #define MODE_STR_SIZE 3
 
 typedef struct node {
-		FILE 	   	*fp;
-		char 		name[FILE_NAME_SIZE];
-		char 		mode[MODE_STR_SIZE];
-		struct node *next;
-		} FileStruct;
+        FILE        *fp;
+        char        name[FILE_NAME_SIZE];
+        char        mode[MODE_STR_SIZE];
+        struct node *next;
+        } FileStruct;
 
 #define Allocate() MemoryAllocate(FileStruct,1)
 #define Free(pt)   MemoryFree(pt)
@@ -58,10 +58,10 @@ static FileStruct *SearchOpenFile(String);
 
 /**************************************************************
 
-	Logical FileIOOpen(String FileName,Mode mode)
-		mode argument must be READ, WRITE or APPEND
+    Logical FileIOOpen(String FileName,Mode mode)
+        mode argument must be READ, WRITE or APPEND
 
-	This function opens a file for reading or writing.
+    This function opens a file for reading or writing.
 
 */
 
@@ -75,7 +75,7 @@ Logical FileIOOpen(String FileName,Mode mode)
     if(first==NULL)
         return FALSE;
     first->next=next;
-	strcpy(first->mode,mode);
+    strcpy(first->mode,mode);
     strcpy(first->name,FileName);
     first->fp=fopen(FileName,mode);
     if(first->fp == NULL)
@@ -84,16 +84,16 @@ Logical FileIOOpen(String FileName,Mode mode)
         first=next;
         return FALSE;
         }
-	return TRUE;
+    return TRUE;
 }
 
 
 
 /**************************************************************
 
-	Logical FileIOClose(String FileName)
+    Logical FileIOClose(String FileName)
 
-	This function closes previously opened file.
+    This function closes previously opened file.
 
 */
 
@@ -102,24 +102,24 @@ Logical FileIOClose(String FileName)
     FileStruct *file;
 
     if((file=SearchOpenFile(FileName))==NULL)
-		return FALSE;
-	if(file==first)
-		prev=first=file->next;
-	else
-		prev->next=file->next;
+        return FALSE;
+    if(file==first)
+        prev=first=file->next;
+    else
+        prev->next=file->next;
     (void)fclose(file->fp);
     Free(file);
-	return TRUE;
+    return TRUE;
 }
 
 
 
 /**************************************************************
 
-	Logical FileIOReadLine(String FileName,cBuffer buf,
-						   bSize size)
+    Logical FileIOReadLine(String FileName,cBuffer buf,
+                           bSize size)
 
-	This function reads a line to buffer given in arguments
+    This function reads a line to buffer given in arguments
 
 */
 
@@ -132,20 +132,20 @@ Logical FileIOReadLine(String FileName,cBuffer buf,int size)
     if(strcmp(file->mode,READ)==0)
         {
         if(fgets(buf,size,file->fp)==0)
-			return FALSE;
-		}
-	else
-		return FALSE;
-	return TRUE;
+            return FALSE;
+        }
+    else
+        return FALSE;
+    return TRUE;
 }
 
 
 
 /**************************************************************
 
-	Logical FileIOWriteLine(String FileName,cBuffer buf)
+    Logical FileIOWriteLine(String FileName,cBuffer buf)
 
-	This function writes a line to file
+    This function writes a line to file
 
 */
 
@@ -158,17 +158,17 @@ Logical FileIOWriteLine(String FileName,cBuffer buf)
     if(strcmp(file->mode,WRITE)==0)
         {
         if(fputs(buf,file->fp)==0)
-			return FALSE;
-		}
-	else
-		return FALSE;
-	return TRUE;
+            return FALSE;
+        }
+    else
+        return FALSE;
+    return TRUE;
 }
 
 
 
 /**************************************************************
-	Internal functions for this file
+    Internal functions for this file
 ***************************************************************/
 
 
@@ -188,7 +188,7 @@ static FileStruct *SearchOpenFile(String name)
     file=prev=first;
     if(first==NULL)
         return NULL;
-	while(strcmp(file->name,name)!=0 && file->next!=NULL)
+    while(strcmp(file->name,name)!=0 && file->next!=NULL)
         {
         prev=file;
         file=file->next;

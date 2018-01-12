@@ -11,7 +11,7 @@
 
 
 /*
-	buffer.h	- Headerfile for buffer handling functions 
+    buffer.h    - Headerfile for buffer handling functions
 */
 
 

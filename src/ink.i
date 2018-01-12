@@ -1,6 +1,6 @@
 #
 # This is an example file of ink structure
-# 
+#
 # Comments starts always with a character '#'
 #
 #
@@ -27,7 +27,7 @@ Absorption 0.9
 Ambient      0.2
 380 0.0001
 780 0.0001
-#         
+#
 #            scale  angle (max Pi/2)
 Specular     0.8   0.05
 380 0.5

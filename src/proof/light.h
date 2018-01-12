@@ -10,7 +10,7 @@
 
 
 /*
-	Light.h	- Headerfile for Light.c
+    Light.h - Headerfile for Light.c
 */
 
 

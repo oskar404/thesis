@@ -10,8 +10,8 @@
 # Conditions: polished
 # Temperature:
 # Incident angle: normal
-# Solid angle:      
-#        
+# Solid angle:
+#
 dielectric
 # index of refraction at 589.2nm
 n 1.51124

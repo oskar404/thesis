@@ -32,31 +32,31 @@ static char rcsid[] = "$Header: /usr/people/sam/tiff/libtiff/RCS/tif_msdos.c,v 1
 #include "tiffiop.h"
 #include <io.h>
 #if defined(__WATCOMC__) || defined(__BORLANDC__)
-#include <io.h>		/* for open, close, etc. function prototypes */
+#include <io.h>     /* for open, close, etc. function prototypes */
 #endif
 
 static int
 DECLARE3(_tiffReadProc, void*, fd, char*, buf, u_long, size)
 {
-	return (read((int) fd, buf, size));
+    return (read((int) fd, buf, size));
 }
 
 static int
 DECLARE3(_tiffWriteProc, void*, fd, char*, buf, u_long, size)
 {
-	return (write((int) fd, buf, size));
+    return (write((int) fd, buf, size));
 }
 
 static long
 DECLARE3(_tiffSeekProc, void*, fd, long, off, int, whence)
 {
-	return (lseek((int) fd, off, whence));
+    return (lseek((int) fd, off, whence));
 }
 
 static int
 DECLARE1(_tiffCloseProc, void*, fd)
 {
-	return (close((int) fd));
+    return (close((int) fd));
 }
 
 #include <sys/stat.h>
@@ -64,14 +64,14 @@ DECLARE1(_tiffCloseProc, void*, fd)
 static long
 DECLARE1(_tiffSizeProc, void*, fd)
 {
-	struct stat sb;
-	return (fstat((int) fd, &sb) < 0 ? 0 : sb.st_size);
+    struct stat sb;
+    return (fstat((int) fd, &sb) < 0 ? 0 : sb.st_size);
 }
 
 static int
 DECLARE3(_tiffMapProc, void*, fd, char**, pbase, long*, psize)
 {
-	return (0);
+    return (0);
 }
 
 static void
@@ -85,15 +85,15 @@ DECLARE3(_tiffUnmapProc, void*, fd, char*, base, long, size)
 TIFF *
 DECLARE3(TIFFFdOpen, int, fd, const char*, name, const char*, mode)
 {
-	TIFF *tif;
+    TIFF *tif;
 
-	tif = TIFFClientOpen(name, mode,
-	    (void*) fd,
-	    _tiffReadProc, _tiffWriteProc, _tiffSeekProc, _tiffCloseProc,
-	    _tiffSizeProc, _tiffMapProc, _tiffUnmapProc);
-	if (tif)
-		tif->tif_fd = fd;
-	return (tif);
+    tif = TIFFClientOpen(name, mode,
+        (void*) fd,
+        _tiffReadProc, _tiffWriteProc, _tiffSeekProc, _tiffCloseProc,
+        _tiffSizeProc, _tiffMapProc, _tiffUnmapProc);
+    if (tif)
+        tif->tif_fd = fd;
+    return (tif);
 }
 
 /*
@@ -102,23 +102,23 @@ DECLARE3(TIFFFdOpen, int, fd, const char*, name, const char*, mode)
 TIFF *
 DECLARE2(TIFFOpen, const char*, name, const char*, mode)
 {
-	static const char module[] = "TIFFOpen";
-	int m, fd;
+    static const char module[] = "TIFFOpen";
+    int m, fd;
 
-	m = _TIFFgetMode(mode, module);
-	if (m == -1)
-		return ((TIFF *)0);
-	fd = open(name, m|O_BINARY, 0666);
-	if (fd < 0) {
-		TIFFError(module, "%s: Cannot open", name);
-		return ((TIFF *)0);
-	}
-	return (TIFFFdOpen(fd, name, mode));
+    m = _TIFFgetMode(mode, module);
+    if (m == -1)
+        return ((TIFF *)0);
+    fd = open(name, m|O_BINARY, 0666);
+    if (fd < 0) {
+        TIFFError(module, "%s: Cannot open", name);
+        return ((TIFF *)0);
+    }
+    return (TIFFFdOpen(fd, name, mode));
 }
 
 #ifdef __GNUC__
-extern	char *malloc();
-extern	char *realloc();
+extern  char *malloc();
+extern  char *realloc();
 #else
 #include <malloc.h>
 #endif
@@ -126,17 +126,17 @@ extern	char *realloc();
 void *
 DECLARE1(_TIFFmalloc, size_t, s)
 {
-	return (malloc(s));
+    return (malloc(s));
 }
 
 void
 DECLARE1(_TIFFfree, void*, p)
 {
-	free(p);
+    free(p);
 }
 
 void *
 DECLARE2(_TIFFrealloc, void*, p, size_t, s)
 {
-	return (realloc(p, s));
+    return (realloc(p, s));
 }

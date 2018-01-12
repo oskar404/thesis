@@ -10,7 +10,7 @@
 
 
 /*
-	Convert.c	- Module for handling conversion
+    Convert.c   - Module for handling conversion
 */
 
 
@@ -46,72 +46,72 @@
 
 /**************************************************************
 
-	int ConvertFile(String FIn,String FOut,double origo
-					,double scale,int type)
+    int ConvertFile(String FIn,String FOut,double origo
+                    ,double scale,int type)
 
-	Converts a file to an other
+    Converts a file to an other
 
 */
 
 int ConvertFile(String FIn,String FOut,double origo,double scale,
-				int type)
+                int type)
 {
-	cBuffer buf=NULL,bufTmp=NULL;
-	char    str[STR_SIZE];
-	int     bSize=BUFFER_SIZE;
+    cBuffer buf=NULL,bufTmp=NULL;
+    char    str[STR_SIZE];
+    int     bSize=BUFFER_SIZE;
 
-	if (FileIOOpen(FIn,READ) == FALSE)
-		goto error;
-	if (FileIOOpen(FOut,WRITE) == FALSE)
-		goto error;
-	if((buf=BufferAllocate(bSize))==NULL)
-		goto error;
-	if((bufTmp=BufferAllocate(bSize))==NULL)
-		goto error;
-	while (FileIOReadLine(FIn,buf,bSize)!=FALSE)
-		{
-		if(isdigit(buf[0]) || buf[0]=='-' || buf[0]=='.')
-			{
-			int index=0,ind2=0,i;
-			double dTmp;
+    if (FileIOOpen(FIn,READ) == FALSE)
+        goto error;
+    if (FileIOOpen(FOut,WRITE) == FALSE)
+        goto error;
+    if((buf=BufferAllocate(bSize))==NULL)
+        goto error;
+    if((bufTmp=BufferAllocate(bSize))==NULL)
+        goto error;
+    while (FileIOReadLine(FIn,buf,bSize)!=FALSE)
+        {
+        if(isdigit(buf[0]) || buf[0]=='-' || buf[0]=='.')
+            {
+            int index=0,ind2=0,i;
+            double dTmp;
 
-			while((index=BufferReadDouble(buf,&dTmp,index))>=0)
-				{
-				dTmp=(dTmp+origo)*scale;
-				(type==FALSE?sprintf(str,ELEMENT_F,dTmp):
-							 sprintf(str,ELEMENT_I,(unsigned int)dTmp));
-				i=0;
-				while(str[i]!='\0')
-					bufTmp[ind2++]=str[i++];
-				}
-			bufTmp[ind2++]='\n';
-			bufTmp[ind2]='\0';
-			if(FileIOWriteLine(FOut,bufTmp)==FALSE)
-				goto error;
-			}
-		else
-			if(FileIOWriteLine(FOut,buf)==FALSE)
-				goto error;
-		}
-	return TRUE;
+            while((index=BufferReadDouble(buf,&dTmp,index))>=0)
+                {
+                dTmp=(dTmp+origo)*scale;
+                (type==FALSE?sprintf(str,ELEMENT_F,dTmp):
+                             sprintf(str,ELEMENT_I,(unsigned int)dTmp));
+                i=0;
+                while(str[i]!='\0')
+                    bufTmp[ind2++]=str[i++];
+                }
+            bufTmp[ind2++]='\n';
+            bufTmp[ind2]='\0';
+            if(FileIOWriteLine(FOut,bufTmp)==FALSE)
+                goto error;
+            }
+        else
+            if(FileIOWriteLine(FOut,buf)==FALSE)
+                goto error;
+        }
+    return TRUE;
 
-	/* No roughness matrix has been read */
+    /* No roughness matrix has been read */
 
 error:
-	(void)FileIOClose(FIn);
-	(void)FileIOClose(FOut);
-	if(buf!=NULL)
-		BufferFree(buf);
-	if(bufTmp!=NULL)
-		BufferFree(bufTmp);
-	MessageWarning("Can't convert file");
-	return FALSE;
+    (void)FileIOClose(FIn);
+    (void)FileIOClose(FOut);
+    if(buf!=NULL)
+        BufferFree(buf);
+    if(bufTmp!=NULL)
+        BufferFree(bufTmp);
+    MessageWarning("Can't convert file");
+    return FALSE;
 }
 
 
 
 /**************************************************************
-	Internal functions for this file
+    Internal functions for this file
 ***************************************************************/
 
 

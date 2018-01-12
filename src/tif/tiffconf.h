@@ -24,7 +24,7 @@
  */
 
 #ifndef _TIFFCONF_
-#define	_TIFFCONF_
+#define _TIFFCONF_
 /*
  * Library Configuration Definitions.
  *
@@ -39,38 +39,38 @@
 /*
  * General portability-related defines:
  *
- * USE_VARARGS		define as 0 or 1 to select between the use of
- *			varargs.h and stdarg.h; i.e. -DUSE_VARARGS=0
- *			means use stdarg.h
- * USE_PROTOTYPES	define as 0 or 1 to select function declarations
- *			and definitions with parameter types
- * USE_CONST		if your compiler defines __STDC__ or __EXTENSIONS__,
- *			but does not support const, define this as 0,
- *			otherwise leave it alone
- * HAVE_IEEEFP		define as 0 or 1 according to the floating point
- *			format suported by the machine
- * BSDTYPES		define this if your system does NOT define the
- *			usual 4BSD typedefs
+ * USE_VARARGS      define as 0 or 1 to select between the use of
+ *          varargs.h and stdarg.h; i.e. -DUSE_VARARGS=0
+ *          means use stdarg.h
+ * USE_PROTOTYPES   define as 0 or 1 to select function declarations
+ *          and definitions with parameter types
+ * USE_CONST        if your compiler defines __STDC__ or __EXTENSIONS__,
+ *          but does not support const, define this as 0,
+ *          otherwise leave it alone
+ * HAVE_IEEEFP      define as 0 or 1 according to the floating point
+ *          format suported by the machine
+ * BSDTYPES     define this if your system does NOT define the
+ *          usual 4BSD typedefs
  *
  * Note that if you compile the code with prototypes (USE_PROTOTYPES=1),
  * then USE_VARARGS must be defined as 0.  Also, beware that if __STDC__
  * is defined and the USE_* symbols are NOT defined, then the following
  * will be used:
- * 	USE_PROTOTYPES	1
- *	USE_VARARGS	0
- *	USE_CONST	1
+ *  USE_PROTOTYPES  1
+ *  USE_VARARGS 0
+ *  USE_CONST   1
  */
 #ifndef USE_VARARGS
-#define	USE_VARARGS	0
+#define USE_VARARGS 0
 #endif
 #ifndef USE_PROTOTYPES
-#define	USE_PROTOTYPES	1
+#define USE_PROTOTYPES  1
 #endif
 #ifndef USE_CONST
-#define	USE_CONST	1
+#define USE_CONST   1
 #endif
 #ifndef HAVE_IEEEFP
-#define	HAVE_IEEEFP	1
+#define HAVE_IEEEFP 1
 #endif
 #ifndef BSDTYPES
 #define BSDTYPES
@@ -84,31 +84,31 @@
 /*
  * Feature support definitions:
  *
- *    MMAP_SUPPORT	enable support for memory mapping read-only files
+ *    MMAP_SUPPORT  enable support for memory mapping read-only files
  *    COLORIMETRY_SUPPORT enable support for 6.0 colorimetry tags
- *    JPEG_SUPPORT	enable support for 6.0 JPEG tags & JPEG algorithms
- *    YCBCR_SUPPORT	enable support for 6.0 YCbCr tags
- *    CMYK_SUPPORT	enable support for 6.0 CMYK tags
+ *    JPEG_SUPPORT  enable support for 6.0 JPEG tags & JPEG algorithms
+ *    YCBCR_SUPPORT enable support for 6.0 YCbCr tags
+ *    CMYK_SUPPORT  enable support for 6.0 CMYK tags
  */
-#define	COLORIMETRY_SUPPORT
+#define COLORIMETRY_SUPPORT
 /*#define JPEG_SUPPORT*/
-#define	YCBCR_SUPPORT
-#define	CMYK_SUPPORT
+#define YCBCR_SUPPORT
+#define CMYK_SUPPORT
 #endif
 
 #ifndef COMPRESSION_SUPPORT
 /*
  * Compression support defines:
  *
- *    CCITT_SUPPORT	enable support for CCITT Group 3 & 4 algorithms
- *    PACKBITS_SUPPORT	enable support for Macintosh PackBits algorithm
- *    LZW_SUPPORT	enable support for LZW algorithm
- *    THUNDER_SUPPORT	enable support for ThunderScan 4-bit RLE algorithm
- *    NEXT_SUPPORT	enable support for NeXT 2-bit RLE algorithm
- *    JPEG_SUPPORT	enable support for JPEG DCT algorithm
+ *    CCITT_SUPPORT enable support for CCITT Group 3 & 4 algorithms
+ *    PACKBITS_SUPPORT  enable support for Macintosh PackBits algorithm
+ *    LZW_SUPPORT   enable support for LZW algorithm
+ *    THUNDER_SUPPORT   enable support for ThunderScan 4-bit RLE algorithm
+ *    NEXT_SUPPORT  enable support for NeXT 2-bit RLE algorithm
+ *    JPEG_SUPPORT  enable support for JPEG DCT algorithm
  */
-/*#define	CCITT_SUPPORT*/
-/*#define	PACKBITS_SUPPORT*/
+/*#define   CCITT_SUPPORT*/
+/*#define   PACKBITS_SUPPORT*/
 /*#define       LZW_SUPPORT*/
 /*#define THUNDER_SUPPORT*/
 /*#define NEXT_SUPPORT */
@@ -117,10 +117,10 @@
 /*
  * ``Orthogonal Features''
  *
- * STRIPCHOP_SUPPORT	automatically convert single-strip uncompressed images
- *			to mutiple strips of ~8Kb (for reducing memory use)
+ * STRIPCHOP_SUPPORT    automatically convert single-strip uncompressed images
+ *          to mutiple strips of ~8Kb (for reducing memory use)
  */
 /*#ifndef STRIPCHOP_SUPPORT*/
-/*#define	STRIPCHOP_SUPPORT*/		/* enable strip chopping */
+/*#define   STRIPCHOP_SUPPORT*/     /* enable strip chopping */
 /*#endif*/
 #endif /* _TIFFCONF_ */

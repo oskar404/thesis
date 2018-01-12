@@ -1,5 +1,5 @@
 /*
-	Access.c contains functions to help using TIFF image.
+    Access.c contains functions to help using TIFF image.
 */
 
 #include <stdio.h>
@@ -10,9 +10,9 @@
 #include "access.h"
 
 
-#define BITSPERSAMPLE			8
+#define BITSPERSAMPLE           8
 #define ROWSPERSTRIP            8
-#define RESOLUTIONUNIT			2
+#define RESOLUTIONUNIT          2
 
 typedef struct {                   /* Control structure for TIFF files. */
                TIFF *tif;
@@ -43,34 +43,34 @@ int CheckImage(TIFF *);                    /* Checks if the TIFF file is RGB or 
 
 TIFF *OpenImage(char *name,char *mode,...)
 {
-	TIFF *tif;
-	va_list ap;
+    TIFF *tif;
+    va_list ap;
 
-	tif = TIFFOpen(name,mode);
-	if(!tif)
-		Error("Can't open file: %s\n",name,tif,(TIFF *)0);
-	if(strcmp(mode,WRITE)==0)
-		{
-		u_long width,length;  /* If mode is WRITE search for file type */
-		double resolution;    /* width, length and resolution of the file */
+    tif = TIFFOpen(name,mode);
+    if(!tif)
+        Error("Can't open file: %s\n",name,tif,(TIFF *)0);
+    if(strcmp(mode,WRITE)==0)
+        {
+        u_long width,length;  /* If mode is WRITE search for file type */
+        double resolution;    /* width, length and resolution of the file */
         int filetype;
 
-		va_start(ap,mode);
+        va_start(ap,mode);
         filetype=va_arg(ap,int);
-		width=va_arg(ap,u_long);
-		length=va_arg(ap,u_long);
-		resolution=va_arg(ap,double);
-		InitTIFF(filetype,tif,width,length,resolution);
-		va_end(ap);
+        width=va_arg(ap,u_long);
+        length=va_arg(ap,u_long);
+        resolution=va_arg(ap,double);
+        InitTIFF(filetype,tif,width,length,resolution);
+        va_end(ap);
         output.tif=tif;
         output.type=filetype;
-		}
-	else
+        }
+    else
         {
-		input.type=CheckImage(tif);
+        input.type=CheckImage(tif);
         input.tif=tif;
         }
-	return tif;
+    return tif;
 }
 
 
@@ -80,8 +80,8 @@ TIFF *OpenImage(char *name,char *mode,...)
 
 void CloseImage(TIFF *tif)
 {
-	TIFFClose(tif);
-	return;
+    TIFFClose(tif);
+    return;
 }
 
 
@@ -91,21 +91,21 @@ void CloseImage(TIFF *tif)
 
 ImageSize *GetImageSize(TIFF *tif)
 {
-	static ImageSize TifImageSize;
-	u_long imagelength;
+    static ImageSize TifImageSize;
+    u_long imagelength;
     u_long imagewidth;
     float resolution;
 
-	if(!TIFFGetField(tif,TIFFTAG_IMAGELENGTH,&imagelength))
-		return NULL;
-	if(!TIFFGetField(tif,TIFFTAG_IMAGEWIDTH,&imagewidth))
-		return NULL;
-	if(!TIFFGetField(tif,TIFFTAG_XRESOLUTION,&resolution))
-		return NULL;
-	TifImageSize.width=imagewidth;
-	TifImageSize.length=imagelength;
-	TifImageSize.resolution=resolution;
-	return &TifImageSize;
+    if(!TIFFGetField(tif,TIFFTAG_IMAGELENGTH,&imagelength))
+        return NULL;
+    if(!TIFFGetField(tif,TIFFTAG_IMAGEWIDTH,&imagewidth))
+        return NULL;
+    if(!TIFFGetField(tif,TIFFTAG_XRESOLUTION,&resolution))
+        return NULL;
+    TifImageSize.width=imagewidth;
+    TifImageSize.length=imagelength;
+    TifImageSize.resolution=resolution;
+    return &TifImageSize;
 }
 
 
@@ -119,15 +119,15 @@ ImageSize *GetImageSize(TIFF *tif)
 
 buffer_t AllocRowBuffer(TIFF *tif)
 {
-	buffer_t buffer;
-	u_long i;
+    buffer_t buffer;
+    u_long i;
 
-	buffer=(buffer_t) malloc(TIFFScanlineSize(tif));
-	if(buffer==NULL)
-		Error("Can't allocate memory for row buffer%s\n","",tif,(TIFF *)0);
-	for(i=0;buffer[i]!='\0';i++)
-		buffer[i]=(value_t) 255;
-	return buffer;
+    buffer=(buffer_t) malloc(TIFFScanlineSize(tif));
+    if(buffer==NULL)
+        Error("Can't allocate memory for row buffer%s\n","",tif,(TIFF *)0);
+    for(i=0;buffer[i]!='\0';i++)
+        buffer[i]=(value_t) 255;
+    return buffer;
 }
 
 
@@ -140,9 +140,9 @@ buffer_t AllocRowBuffer(TIFF *tif)
 
 logical WriteRowBuffer(TIFF *tif,buffer_t buffer,u_long row)
 {
-	if(TIFFWriteScanline(tif,buffer,row,(int) 0)!=1)
-		return FALSE;
-	return TRUE;
+    if(TIFFWriteScanline(tif,buffer,row,(int) 0)!=1)
+        return FALSE;
+    return TRUE;
 }
 
 
@@ -155,9 +155,9 @@ logical WriteRowBuffer(TIFF *tif,buffer_t buffer,u_long row)
 
 logical ReadRowBuffer(TIFF *tif,buffer_t buffer,u_long row)
 {
-	if(TIFFReadScanline(tif,buffer,row,(int) 0)!=1)
-		return FALSE;
-	return TRUE;
+    if(TIFFReadScanline(tif,buffer,row,(int) 0)!=1)
+        return FALSE;
+    return TRUE;
 }
 
 
@@ -166,8 +166,8 @@ logical ReadRowBuffer(TIFF *tif,buffer_t buffer,u_long row)
 
 void FreeRowBuffer(buffer_t buffer)
 {
-	free(buffer);
-	return;
+    free(buffer);
+    return;
 }
 
 
@@ -207,14 +207,14 @@ void SetCompression(int type)
 
 void Error(char *s1,char *s2,TIFF *tif1,TIFF *tif2)
 {
-	if(tif1!=(TIFF *)0)
-		TIFFClose(tif1);
-	if(tif2!=(TIFF *)0)
-		TIFFClose(tif2);
+    if(tif1!=(TIFF *)0)
+        TIFFClose(tif1);
+    if(tif2!=(TIFF *)0)
+        TIFFClose(tif2);
     if(strcmp(s2,"")==0)
-    	printf(s1);
+        printf(s1);
     else
-    	printf(s1, s2);
+        printf(s1, s2);
     exit(-1);
 }
 
@@ -230,20 +230,20 @@ void Error(char *s1,char *s2,TIFF *tif1,TIFF *tif2)
 
 void InitTIFF(int type,TIFF *tif,u_long width,u_long length,double resolution)
 {
-	TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, width);
-	TIFFSetField(tif, TIFFTAG_IMAGELENGTH, length);
-	TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, (u_short) BITSPERSAMPLE);
+    TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, width);
+    TIFFSetField(tif, TIFFTAG_IMAGELENGTH, length);
+    TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, (u_short) BITSPERSAMPLE);
     TIFFSetField(tif, TIFFTAG_COMPRESSION, (u_short) CompressionFlag);
-	TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, (u_long) ROWSPERSTRIP);
-	TIFFSetField(tif, TIFFTAG_RESOLUTIONUNIT, (u_short) RESOLUTIONUNIT);
-	TIFFSetField(tif, TIFFTAG_XRESOLUTION, resolution);
-	TIFFSetField(tif, TIFFTAG_YRESOLUTION, resolution);
-	TIFFSetField(tif, TIFFTAG_SOFTWARE, "TKK/GRA programs");
-	TIFFSetField(tif, TIFFTAG_ARTIST, "Oskar L”nnberg");
-	TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (u_short) PLANARCONFIG_CONTIG);
-	TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, (u_short) (type==RGB?PHOTOMETRIC_RGB:PHOTOMETRIC_SEPARATED));
-	TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (u_short) type);
-	return;
+    TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, (u_long) ROWSPERSTRIP);
+    TIFFSetField(tif, TIFFTAG_RESOLUTIONUNIT, (u_short) RESOLUTIONUNIT);
+    TIFFSetField(tif, TIFFTAG_XRESOLUTION, resolution);
+    TIFFSetField(tif, TIFFTAG_YRESOLUTION, resolution);
+    TIFFSetField(tif, TIFFTAG_SOFTWARE, "TKK/GRA programs");
+    TIFFSetField(tif, TIFFTAG_ARTIST, "Oskar L”nnberg");
+    TIFFSetField(tif, TIFFTAG_PLANARCONFIG, (u_short) PLANARCONFIG_CONTIG);
+    TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, (u_short) (type==RGB?PHOTOMETRIC_RGB:PHOTOMETRIC_SEPARATED));
+    TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, (u_short) type);
+    return;
 }
 
 
@@ -254,30 +254,30 @@ void InitTIFF(int type,TIFF *tif,u_long width,u_long length,double resolution)
 
 int CheckImage(TIFF *tif)
 {
-	char 	*str="",
-	        *err="";
-	u_short photo,comp,samples,planar,bits;
+    char    *str="",
+            *err="";
+    u_short photo,comp,samples,planar,bits;
     int     type;
 
-	if(!TIFFGetField(tif,TIFFTAG_COMPRESSION,&comp) ||
+    if(!TIFFGetField(tif,TIFFTAG_COMPRESSION,&comp) ||
             !(comp==COMPRESSION_NONE || comp==COMPRESSION_PACKBITS))
-		err="Compression";
-	else if(!TIFFGetField(tif,TIFFTAG_PHOTOMETRIC,&photo) ||
-			!(photo==PHOTOMETRIC_RGB || photo==PHOTOMETRIC_SEPARATED))
-		err="PhotometricInterpretation";
+        err="Compression";
+    else if(!TIFFGetField(tif,TIFFTAG_PHOTOMETRIC,&photo) ||
+            !(photo==PHOTOMETRIC_RGB || photo==PHOTOMETRIC_SEPARATED))
+        err="PhotometricInterpretation";
     type=(photo==PHOTOMETRIC_RGB?RGB:CMYK);
-	if(!TIFFGetField(tif,TIFFTAG_SAMPLESPERPIXEL,&samples) ||
-			samples!=(type==RGB?RGB:CMYK))
-		err="SamplesPerPixel";
-	else if(!TIFFGetField(tif,TIFFTAG_PLANARCONFIG,&planar) ||
-			planar!=PLANARCONFIG_CONTIG)
-		err="PlanarConfiguration";
-	else if(!TIFFGetField(tif,TIFFTAG_BITSPERSAMPLE,&bits) || bits!=BITSPERSAMPLE)
-		err="BitsPerSample";
-	if(strcmp(err,"")!=0)
-		{
-		str=strcat(strcat("Not a ",(type==RGB?"RGB":"CMYK"))," image: Tag %s invalid\n");
-		Error(str,err,tif,(TIFF *)0);
-		}
-	return type;
+    if(!TIFFGetField(tif,TIFFTAG_SAMPLESPERPIXEL,&samples) ||
+            samples!=(type==RGB?RGB:CMYK))
+        err="SamplesPerPixel";
+    else if(!TIFFGetField(tif,TIFFTAG_PLANARCONFIG,&planar) ||
+            planar!=PLANARCONFIG_CONTIG)
+        err="PlanarConfiguration";
+    else if(!TIFFGetField(tif,TIFFTAG_BITSPERSAMPLE,&bits) || bits!=BITSPERSAMPLE)
+        err="BitsPerSample";
+    if(strcmp(err,"")!=0)
+        {
+        str=strcat(strcat("Not a ",(type==RGB?"RGB":"CMYK"))," image: Tag %s invalid\n");
+        Error(str,err,tif,(TIFF *)0);
+        }
+    return type;
 }

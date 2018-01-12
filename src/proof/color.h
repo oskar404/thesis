@@ -10,7 +10,7 @@
 
 
 /*
-	Color.h	- Color operations header file
+    Color.h - Color operations header file
 */
 
 
@@ -26,8 +26,8 @@
 typedef double BasicColorType;
 typedef BasicColorType * ColorType;
 typedef struct {
-	unsigned char r,g,b;
-				} RGBType;
+    unsigned char r,g,b;
+                } RGBType;
 
 Logical ColorInit(void);
 void ColorExit(void);

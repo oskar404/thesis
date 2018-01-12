@@ -10,7 +10,7 @@
 
 
 /*
-	Proof.h	- Headerfile for Proof.c
+    Proof.h - Headerfile for Proof.c
 */
 
 

@@ -11,7 +11,7 @@
 
 
 /*
-	Defs.h	- Headerfile for common definitions for whole program
+    Defs.h  - Headerfile for common definitions for whole program
 */
 
 

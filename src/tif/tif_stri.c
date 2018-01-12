@@ -39,20 +39,20 @@ static char rcsid[] = "$Header: /usr/people/sam/tiff/libtiff/RCS/tif_strip.c,v 1
 u_int
 DECLARE3(TIFFComputeStrip, TIFF*, tif, u_long, row, u_int, sample)
 {
-	TIFFDirectory *td = &tif->tif_dir;
-	u_int strip;
+    TIFFDirectory *td = &tif->tif_dir;
+    u_int strip;
 
-	strip = row / td->td_rowsperstrip;
-	if (td->td_planarconfig == PLANARCONFIG_SEPARATE) {
-		if (sample >= td->td_samplesperpixel) {
-			TIFFError(tif->tif_name,
-			    "%d: Sample out of range, max %d",
-			    sample, td->td_samplesperpixel);
-			return (0);
-		}
-		strip += sample*td->td_stripsperimage;
-	}
-	return (strip);
+    strip = row / td->td_rowsperstrip;
+    if (td->td_planarconfig == PLANARCONFIG_SEPARATE) {
+        if (sample >= td->td_samplesperpixel) {
+            TIFFError(tif->tif_name,
+                "%d: Sample out of range, max %d",
+                sample, td->td_samplesperpixel);
+            return (0);
+        }
+        strip += sample*td->td_stripsperimage;
+    }
+    return (strip);
 }
 
 /*
@@ -61,11 +61,11 @@ DECLARE3(TIFFComputeStrip, TIFF*, tif, u_long, row, u_int, sample)
 u_int
 DECLARE1(TIFFNumberOfStrips, TIFF*, tif)
 {
-	TIFFDirectory *td = &tif->tif_dir;
+    TIFFDirectory *td = &tif->tif_dir;
 
-	return (td->td_rowsperstrip == 0xffffffff ?
-	     (td->td_imagelength != 0 ? 1 : 0) :
-	     howmany(td->td_imagelength, td->td_rowsperstrip));
+    return (td->td_rowsperstrip == 0xffffffff ?
+         (td->td_imagelength != 0 ? 1 : 0) :
+         howmany(td->td_imagelength, td->td_rowsperstrip));
 }
 
 /*
@@ -74,32 +74,32 @@ DECLARE1(TIFFNumberOfStrips, TIFF*, tif)
 u_long
 DECLARE2(TIFFVStripSize, TIFF*, tif, u_long, nrows)
 {
-	TIFFDirectory *td = &tif->tif_dir;
+    TIFFDirectory *td = &tif->tif_dir;
 
-	if (nrows == (u_long)-1)
-		nrows = td->td_imagelength;
+    if (nrows == (u_long)-1)
+        nrows = td->td_imagelength;
 #ifdef YCBCR_SUPPORT
-	if (td->td_planarconfig == PLANARCONFIG_CONTIG &&
-	    td->td_photometric == PHOTOMETRIC_YCBCR) {
-		/*
-		 * Packed YCbCr data contain one Cb+Cr for every
-		 * HorizontalSampling*VerticalSampling Y values.
-		 * Must also roundup width and height when calculating
-		 * since images that are not a multiple of the
-		 * horizontal/vertical subsampling area include
-		 * YCbCr data for the extended image.
-		 */
-		u_long w =
-		    roundup(td->td_imagewidth, td->td_ycbcrsubsampling[0]);
-		u_long scanline = howmany(w*td->td_bitspersample, 8);
-		u_long samplingarea =
-		    td->td_ycbcrsubsampling[0]*td->td_ycbcrsubsampling[1];
-		nrows = roundup(nrows, td->td_ycbcrsubsampling[1]);
-		/* NB: don't need howmany here 'cuz everything is rounded */
-		return (nrows*scanline + 2*(nrows*scanline / samplingarea));
-	} else
+    if (td->td_planarconfig == PLANARCONFIG_CONTIG &&
+        td->td_photometric == PHOTOMETRIC_YCBCR) {
+        /*
+         * Packed YCbCr data contain one Cb+Cr for every
+         * HorizontalSampling*VerticalSampling Y values.
+         * Must also roundup width and height when calculating
+         * since images that are not a multiple of the
+         * horizontal/vertical subsampling area include
+         * YCbCr data for the extended image.
+         */
+        u_long w =
+            roundup(td->td_imagewidth, td->td_ycbcrsubsampling[0]);
+        u_long scanline = howmany(w*td->td_bitspersample, 8);
+        u_long samplingarea =
+            td->td_ycbcrsubsampling[0]*td->td_ycbcrsubsampling[1];
+        nrows = roundup(nrows, td->td_ycbcrsubsampling[1]);
+        /* NB: don't need howmany here 'cuz everything is rounded */
+        return (nrows*scanline + 2*(nrows*scanline / samplingarea));
+    } else
 #endif
-		return (nrows * TIFFScanlineSize(tif));
+        return (nrows * TIFFScanlineSize(tif));
 }
 
 /*
@@ -108,6 +108,6 @@ DECLARE2(TIFFVStripSize, TIFF*, tif, u_long, nrows)
 u_long
 DECLARE1(TIFFStripSize, TIFF*, tif)
 {
-	return (TIFFVStripSize(tif, tif->tif_dir.td_rowsperstrip));
+    return (TIFFVStripSize(tif, tif->tif_dir.td_rowsperstrip));
 }
 

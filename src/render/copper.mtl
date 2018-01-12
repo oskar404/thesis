@@ -10,7 +10,7 @@
 # Temperature: 298 K
 # Incident angle: 9
 # Solid angle: 2pi
-#         
+#
 conductor
 #
 n 0.617
@@ -26,4 +26,4 @@ k 2.630
 620 0.670
 660 0.725
 700 0.755
-#         
+#

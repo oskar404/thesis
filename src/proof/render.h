@@ -10,7 +10,7 @@
 
 
 /*
-	Render.h	- Headerfile for Render.c
+    Render.h    - Headerfile for Render.c
 */
 
 
@@ -21,15 +21,15 @@
 #include "c_types.h"
 #include "access.h"
 
-typedef struct 	{
-	String		Name;
-	TIFF *      Tif;
-	double      PixelSize;
-	int         X,Y;
-	int         Model;
-	double 		ViewDir;
-	Logical		UseInk;
-				} RenderType;
+typedef struct  {
+    String      Name;
+    TIFF *      Tif;
+    double      PixelSize;
+    int         X,Y;
+    int         Model;
+    double      ViewDir;
+    Logical     UseInk;
+                } RenderType;
 
 Logical RenderImage(RenderType);
 
