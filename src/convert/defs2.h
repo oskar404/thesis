@@ -1,8 +1,8 @@
 
 /**************************************************************/
-/* This software was made by Oskar L”nnberg                   */
+/* This software was made by Oskar Lönnberg                   */
 /*                                                            */
-/* Copyright (c) by Oskar L”nnberg                            */
+/* Copyright (c) by Oskar Lönnberg                            */
 /*                                                            */
 /* Permission to use, copy, modify, distribute, and sell this */
 /* software and its documentation for any purpose is not      */
@@ -22,7 +22,7 @@
 
 /* Global defines */
 
-#define AUTHOR "Oskar L”nnberg"
+#define AUTHOR "Oskar Lönnberg"
 #define PROGRAM "Scaling program"
 #define VERSION "1.11"
 #define DATE "1.10.1993"
