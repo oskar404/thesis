@@ -1,5 +1,5 @@
 
-# Reproducing: Model Based Visulaization of Paper
+# Reproducing: Model Based Visualization of Paper
 
 This is my old thesis work done long ago. I stumbled across the source material
 and decided to check how my coding was then and if I am able compile this.
