@@ -196,7 +196,7 @@ VECTOR *VectorRefracted (VECTOR *L,VECTOR *N,double ni,double nt)
 
          VECTOR *VectorH (VECTOR *L,VECTOR *E)
          L (in) incident vector
-        E (in) reflected vector
+         E (in) reflected vector
 
          Returns H, NULL on error (if L+H = 0).
 
