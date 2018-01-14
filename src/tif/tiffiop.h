@@ -424,4 +424,4 @@ extern  int TIFFInitJPEG();
 #endif
 #endif /* !USE_PROTOTYPES */
 #endif /* _TIFFIOP_ */
-
+
