@@ -134,3 +134,61 @@ second project file
 has references to PAPER and IO directories. So here is some idea how what is
 the contents for two executables. Still the two other main functions are a
 mystery.
+
+So let's start and sprinkle some bash magic:
+
+    strings reference/PROOF.PRJ | grep -E "^(PROOF|IO|RENDER|TIF).*\.C$" | sort | uniq | tr '[A-Z]' '[a-z]' | sed 's/\\/\//'
+
+And we get a list of files:
+ 
+    io/buffer.c
+    io/fileio.c
+    io/getopt.c
+    io/message.c
+    proof/color.c
+    proof/ink.c
+    proof/light.c
+    proof/paper.c
+    proof/picture.c
+    proof/proof.c
+    proof/render.c
+    render/mfacet.c
+    render/vector.c
+    tif/access.c
+    tif/tif_aux.c
+    tif/tif_clos.c
+    tif/tif_comp.c
+    tif/tif_dir.c
+    tif/tif_diri.c
+    tif/tif_dirr.c
+    tif/tif_dirw.c
+    tif/tif_dump.c
+    tif/tif_erro.c
+    tif/tif_flus.c
+    tif/tif_mach.c
+    tif/tif_msdo.c
+    tif/tif_open.c
+    tif/tif_read.c
+    tif/tif_stri.c
+    tif/tif_swab.c
+    tif/tif_tile.c
+    tif/tif_vers.c
+    tif/tif_warn.c
+    tif/tif_writ.c
+
+In shoort the scommand line searched all string starting with recognized path
+names, sort the string and remove duplicates, translate the strings to lower
+case and replace back slash with slash. A similar list can be generated for the
+PAPER project file:
+
+    strings reference/PAPER.PRJ | grep -E "^(PAPER|IO).*\.C$" | sort | uniq | tr '[A-Z]' '[a-z]' | sed 's/\\/\//'
+
+    io/buffer.c
+    io/fileio.c
+    io/getopt.c
+    io/message.c
+    paper/create_c.c
+    paper/create_r.c
+    paper/paper.c
+
+Based on these the first `Makefile` version can be tried.
