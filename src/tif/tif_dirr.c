@@ -1258,4 +1258,4 @@ DECLARE1(ChopUpSingleUncompressedStrip, TIFF*, tif)
     td->td_stripoffset = newoffsets;
 }
 #endif /* STRIPCHOP_SUPPORT */
-
+

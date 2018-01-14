@@ -34,4 +34,4 @@ TIFFGetVersion()
 {
     return (TIFFVersion);
 }
-
+

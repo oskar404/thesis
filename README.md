@@ -192,3 +192,32 @@ PAPER project file:
     paper/paper.c
 
 Based on these the first `Makefile` version can be tried.
+
+### 4. Compiling
+
+The real fun part starts now. The compiler is "gcc 4.8.4".
+
+The first step is to try to compile the `proof` executable. Getting the include
+paths correct is bit tedious. The `Makefile` needs to list all the components
+in the include path.
+
+The second thing noticed. The `-Wall` option is not good:
+
+    src/proof/color.c:166:12: warning: unused variable ‘len’ [-Wunused-variable]
+
+And need to remove `-pedantic` also:
+
+    src/proof/proof.c:79:5: warning: string length ‘580’ is greater than the
+    length ‘509’ ISO C90 compilers are required to support [-Woverlength-strings]
+
+So much for standard c code.
+
+Next thing to notice is `CLK_TCK` problem:
+
+    src/proof/proof.c:236:37: error: ‘CLK_TCK’ undeclared (first use in this function)
+    execution_time=(time_t)(clock()/CLK_TCK);
+
+This is an obsolete name for `CLOCKS_PER_SEC`. Old code it seems.
+
+
+

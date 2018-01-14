@@ -63,4 +63,4 @@ DECLARE2V(TIFFWarning, const char*, module, const char*, fmt)
         va_end(ap);
     }
 }
-
+

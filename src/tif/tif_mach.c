@@ -184,4 +184,4 @@ DECLARE3(TIFFCvtNativeToIEEEFloat, TIFF*, tif, u_int, n, float*, f)
     }
 }
 #endif
-
+

@@ -543,4 +543,4 @@ DECLARE2(TIFFCheckRead, TIFF*, tif, int, tiles)
     }
     return (1);
 }
-
+

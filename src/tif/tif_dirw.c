@@ -797,4 +797,4 @@ DECLARE1(TIFFLinkDirectory, TIFF*, tif)
     }
     return (1);
 }
-
+

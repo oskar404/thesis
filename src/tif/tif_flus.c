@@ -60,4 +60,4 @@ DECLARE1(TIFFFlushData, TIFF*, tif)
     }
     return (TIFFFlushData1(tif));
 }
-
+

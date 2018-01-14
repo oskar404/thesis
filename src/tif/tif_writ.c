@@ -563,4 +563,4 @@ DECLARE1(TIFFFlushData1, TIFF*, tif)
     }
     return (1);
 }
-
+

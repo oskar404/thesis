@@ -188,4 +188,4 @@ DECLARE1(TIFFTileSize, TIFF*, tif)
 {
     return (TIFFVTileSize(tif, tif->tif_dir.td_tilelength));
 }
-
+

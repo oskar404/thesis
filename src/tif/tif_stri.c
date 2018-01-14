@@ -110,4 +110,4 @@ DECLARE1(TIFFStripSize, TIFF*, tif)
 {
     return (TIFFVStripSize(tif, tif->tif_dir.td_rowsperstrip));
 }
-
+

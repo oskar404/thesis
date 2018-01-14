@@ -156,4 +156,4 @@ DECLARE2(TIFFSetCompressionScheme, TIFF*, tif, int, scheme)
     tif->tif_options = 0;
     return ((*c->init)(tif));
 }
-
+

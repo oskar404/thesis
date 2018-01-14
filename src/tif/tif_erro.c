@@ -62,4 +62,4 @@ DECLARE2V(TIFFError, const char*, module, const char*, fmt)
         va_end(ap);
     }
 }
-
+

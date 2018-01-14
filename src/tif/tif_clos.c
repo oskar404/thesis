@@ -49,4 +49,4 @@ DECLARE1(TIFFClose, TIFF*, tif)
     (void) TIFFCloseFile(tif);
     _TIFFfree((char *)tif);
 }
-
+

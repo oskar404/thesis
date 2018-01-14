@@ -296,4 +296,4 @@ DECLARE1(TIFFFieldWithTag, u_short, tag)
     assert(fip != NULL);
     /*NOTREACHED*/
 }
-
+

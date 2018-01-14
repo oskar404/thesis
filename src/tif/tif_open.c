@@ -379,4 +379,4 @@ DECLARE1(TIFFCurrentTile, TIFF*, tif)
 {
     return (tif->tif_curtile);
 }
-
+

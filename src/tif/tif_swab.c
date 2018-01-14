@@ -190,4 +190,4 @@ DECLARE2(TIFFReverseBits, register u_char*, cp, register u_long, n)
     while (n-- > 0)
         *cp = TIFFBitRevTable[*cp], cp++;
 }
-
+

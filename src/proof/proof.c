@@ -233,7 +233,7 @@ static void ExecutionTime(void)
     struct tm *time;
     time_t execution_time;
 
-    execution_time=(time_t)(clock()/CLK_TCK);
+    execution_time=(time_t)(clock()/CLOCKS_PER_SEC);
     time=gmtime(&execution_time);
     strftime(buf,100,"Time used by program: %H:%M:%S",time);
     MessagePrint(buf);

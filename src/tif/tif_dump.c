@@ -140,4 +140,4 @@ DECLARE1(TIFFInitDumpMode, TIFF*, tif)
     tif->tif_seek = DumpModeSeek;
     return (1);
 }
-
+
