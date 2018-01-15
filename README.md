@@ -140,7 +140,7 @@ So let's start and sprinkle some bash magic:
     strings reference/PROOF.PRJ | grep -E "^(PROOF|IO|RENDER|TIF).*\.C$" | sort | uniq | tr '[A-Z]' '[a-z]' | sed 's/\\/\//'
 
 And we get a list of files:
- 
+
     io/buffer.c
     io/fileio.c
     io/getopt.c
@@ -219,5 +219,33 @@ Next thing to notice is `CLK_TCK` problem:
 
 This is an obsolete name for `CLOCKS_PER_SEC`. Old code it seems.
 
+Still not very far.
 
+### 5. First Real Obstacle
+
+    src/tif/tif_msdo.c:33:16: fatal error: io.h: No such file or directory
+    #include <io.h>
+
+Little bit of googling reveals:
+
+    > In fact, io.h header has never been a part of ISO C nor C++ standards.
+    > It defines features that belongs POSIX compatibility layer on Windows NT
+
+It seems that I have copied just part of the `libtiff` sources as part of the
+files. Simple `grep` reveals that the code is originally from 1992 and as
+commented "TIFF Library MSDOS-specific Routines.". Also the file has been
+renamed (probably due to Windows file system problems):
+
+    static char rcsid[] = "$Header: /usr/people/sam/tiff/libtiff/RCS/tif_msdos.c,v 1.5 92/11/09 11:00:23 sam Exp $";
+
+There are only the windows compatible sources available with the source code.
+No unix/posix layer support or sources. The original tool was developed with
+Windows. It seems that no long term support and multiple environments were in
+consideration.
+
+The google-fu is not with this one. The best I could find was
+[Git Lab libtiff project](https://gitlab.com/libtiff/libtiff). This is an active
+project. But the oldest commit was from 1999.
+
+We need to do this hard way.
 
