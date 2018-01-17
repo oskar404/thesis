@@ -249,3 +249,60 @@ project. But the oldest commit was from 1999.
 
 We need to do this hard way.
 
+### 6. Hack File Operations
+
+Copied the `src/tif/tif_msdo.c` file and ported the stuff to Unix/Posix land.
+This was straight forward, because the original file used Windows Posix
+adaptation layer. There were problems like this:
+
+    src/tif/tif_unix.c:42:23: warning: cast from pointer to integer of different
+    size [-Wpointer-to-int-cast]
+        return (read((int) fd, buf, size));
+
+The system I am using is a 64 bit system and original at 1993 I guess all the
+systems were 32 bit. And I just disabled the checks for the GCC. This is
+dangerous. Yay I was able to compile and run the executable for the first time:
+
+    > ./proof
+    Soft Proofing version 2.01, 9.11.1993
+    *** Error in `./proof': free(): invalid next size (normal): 0x0000000000b548b0 ***
+    Aborted (core dumped)
+
+Oh well. `gdb` is your friend:
+
+    (gdb) bt
+    #0  0x00007ffff7741c37 in __GI_raise (sig=sig@entry=6) at ../nptl/sysdeps/unix/sysv/linux/raise.c:56
+    #1  0x00007ffff7745028 in __GI_abort () at abort.c:89
+    #2  0x00007ffff777e2a4 in __libc_message (do_abort=do_abort@entry=1,
+        fmt=fmt@entry=0x7ffff7890310 "*** Error in `%s': %s: 0x%s ***\n")
+        at ../sysdeps/posix/libc_fatal.c:175
+    #3  0x00007ffff778a82e in malloc_printerr (ptr=<optimized out>,
+        str=0x7ffff7890488 "free(): invalid next size (normal)", action=1) at malloc.c:4998
+    #4  _int_free (av=<optimized out>, p=<optimized out>, have_lock=0) at malloc.c:3842
+    #5  0x00007ffff77793fd in __fopen_internal (filename=0x622010 "paper.p", mode=0x4184e0 "r", is32=1)
+        at iofopen.c:94
+    #6  0x0000000000417a78 in FileIOOpen (FileName=0x622010 "paper.p", mode=0x4184e0 "r")
+        at src/io/fileio.c:80
+    #7  0x0000000000404511 in PaperInit (PaperName=0x622010 "paper.p") at src/proof/paper.c:143
+    #8  0x000000000040660a in InitExtStruct () at src/proof/picture.c:402
+    #9  0x000000000040614e in PictureCreate () at src/proof/picture.c:162
+    #10 0x0000000000406805 in main (argc=1, argv=0x7fffffffdd98) at src/proof/proof.c:84
+    (gdb)
+
+So this tries to read file named `paper.p` from current directory. Copied one
+to current directory. Next try and more `gdb`. It needs `light.l`. Bit more
+testing and now it started to generate a picture file, but again:
+
+    *** Error in `/home/oskar/dev/thesis/proof': free(): invalid next size (normal): 0x000000000062ba30 ***
+
+and in `gdb`:
+
+    #3  0x00007ffff778a82e in malloc_printerr (ptr=<optimized out>,
+        str=0x7ffff7890488 "free(): invalid next size (normal)", action=1) at malloc.c:4998
+    #4  _int_free (av=<optimized out>, p=<optimized out>, have_lock=0) at malloc.c:3842
+
+I need to take closer look on the memory handling of this program. Too much
+simple pointer to `int` casts probably. In this specific instance the closing the
+image failed in the old TIFF library.
+
+
