@@ -147,7 +147,7 @@ static void ExitProcedure(void)
 
 static void ReadArguments(int argc,char **argv)
 {
-    int c;
+    int c=0;
 
     while((c=getopt(argc,argv,OPTIONS))!=EOF) /* This while loop gets     */
         {                                     /* command line options and */
@@ -230,8 +230,8 @@ static Logical AnalyzeOptions(int option_letter)
 static void ExecutionTime(void)
 {
     char buf[100];
-    struct tm *time;
-    time_t execution_time;
+    struct tm *time=NULL;
+    time_t execution_time=0;
 
     execution_time=(time_t)(clock()/CLOCKS_PER_SEC);
     time=gmtime(&execution_time);
@@ -276,11 +276,11 @@ static void VersionPrint(void)
 
 static void CreateManyPictures(void)
 {
-    int     argc;
+    int     argc=0;
     char   *argv[20];
     cBuffer buf=NULL;
     int     bSize=BUFFER_SIZE;
-    int     prev_i,i;
+    int     prev_i=0, i=0;
 
     argv[0]=ProgramName;
     if (FileIOOpen(SCRIPT_FILE,READ) == FALSE)

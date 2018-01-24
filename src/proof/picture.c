@@ -446,8 +446,8 @@ static void ExitExtStruct(void)
 static String CheckExtension(String name,String ext)
 {
     int i=0;
-    char c;
-    String str;
+    char c='\0';
+    String str=NULL;
 
     while((c=name[i++])!='.' && c!='\0');
     if(c=='\0')
