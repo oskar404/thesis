@@ -53,3 +53,9 @@ dkms.conf
 
 *.ZIP
 *.zip
+
+/*.config
+/*.creator
+/*.files
+/*.includes
+/*.creator.user
