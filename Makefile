@@ -27,7 +27,7 @@ proof:  $(PROOF_OBJ)
 	$(CC) $^ -o $@ $(LDLIBS) $(LDFLAGS)
 
 clean:
-	@rm -rf *.o
+	@rm -rf *.o core
 
 distclean: clean
 	@rm -f proof
