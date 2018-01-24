@@ -27,7 +27,7 @@ proof:  $(PROOF_OBJ)
 	$(CC) $^ -o $@ $(LDLIBS) $(LDFLAGS)
 
 clean:
-	@rm -rf *.o core
+	@rm -rf *.o core $(shell find -name "*.o")
 
 distclean: clean
 	@rm -f proof
