@@ -288,14 +288,13 @@ void ColorExit(void)
 
 ColorType ColorVectorInit(void)
 {
-    ColorType buf;
+    ColorType buf=NULL;
     int i;
 
-    buf=NULL;
     buf=MemoryAllocate(BasicColorType,color.size);
     if(buf==NULL)
         return NULL;
-    for(i=0;i<=color.size;i++)
+    for(i=0;i<color.size;i++)
         buf[i]=DEFAULT_COLOR_VALUE;
     return buf;
 
