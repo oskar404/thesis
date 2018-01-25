@@ -305,4 +305,43 @@ I need to take closer look on the memory handling of this program. Too much
 simple pointer to `int` casts probably. In this specific instance the closing the
 image failed in the old TIFF library.
 
+### 7. All those moments will be lost in time... like tears in rain...
 
+When inspecting and trieng to figure out the `SIGABRT` problem the first suspect
+was `first->fp=fopen(FileName,mode);` in `fileio.c`. According to man pages the
+`fopen()` should return `NULL` when problems and set `errno`. Simple code
+reproduction without any of the other stuff revealed that the problems was some
+where else than in `glibc` implementation. Little bit of googling suggested that
+there is a memory corruption somewhere.
+
+We need a better hammer. The `valgrind` reveled something else:
+
+    > valgrind ./proof
+    ==5994== Memcheck, a memory error detector
+    ==5994== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+    ==5994== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+    ==5994== Command: ./proof
+    ==5994==
+    Soft Proofing version 2.01, 9.11.1993
+    ==5994== Invalid write of size 8
+    ==5994==    at 0x405BB3: ColorVectorInit (color.c:299)
+    ==5994==    by 0x4057D5: ColorInit (color.c:199)
+    ==5994==    by 0x401E6B: InitExtStruct (picture.c:400)
+    ==5994==    by 0x4019E7: PictureCreate (picture.c:162)
+    ==5994==    by 0x405037: main (proof.c:84)
+    ==5994==  Address 0x550e248 is 0 bytes after a block of size 3,208 alloc'd
+    ==5994==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+    ==5994==    by 0x405B7B: ColorVectorInit (color.c:295)
+    ==5994==    by 0x4057D5: ColorInit (color.c:199)
+    ==5994==    by 0x401E6B: InitExtStruct (picture.c:400)
+    ==5994==    by 0x4019E7: PictureCreate (picture.c:162)
+    ==5994==    by 0x405037: main (proof.c:84)
+
+When looking at code in `color.c:299` the code was having a buffer overflow
+problem:
+
+    -    for(i=0;i<=color.size;i++)
+    +    for(i=0;i<color.size;i++)
+
+This never was a problem in Windows environment. The `malloc` and friends
+behaved differently there. In Linux the overflow was too much.
