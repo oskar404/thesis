@@ -119,14 +119,14 @@ ImageSize *GetImageSize(TIFF *tif)
 
 buffer_t AllocRowBuffer(TIFF *tif)
 {
-    buffer_t buffer;
-    u_long i;
+    buffer_t buffer = NULL;
+    u_long size = 0;
 
-    buffer=(buffer_t) malloc(TIFFScanlineSize(tif));
+    size = TIFFScanlineSize(tif);
+    buffer=(buffer_t) malloc(size);
     if(buffer==NULL)
         Error("Can't allocate memory for row buffer%s\n","",tif,(TIFF *)0);
-    for(i=0;buffer[i]!='\0';i++)
-        buffer[i]=(value_t) 255;
+    memset(buffer, (value_t) 0xFF, size);
     return buffer;
 }
 
