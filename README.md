@@ -345,3 +345,70 @@ problem:
 
 This never was a problem in Windows environment. The `malloc` and friends
 behaved differently there. In Linux the overflow was too much.
+
+### 8. Black Window of Despair
+
+The program worked and produced a `picture.tif` file of size 734K. But when
+trying to open it only a black window was presented or some tools just gave
+error "Could not load image.."
+
+We need to go to the gates of Valhalla:
+
+    > valgrind ./proof -p src/paper.p -l src/light.l
+    ==4546== Memcheck, a memory error detector
+    ==4546== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+    ==4546== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+    ==4546== Command: ./proof -p src/paper.p -l src/light.l
+    ==4546==
+    Soft Proofing version 2.01, 9.11.1993
+    ==4546== Conditional jump or move depends on uninitialised value(s)
+    ==4546==    at 0x416663: AllocRowBuffer (access.c:128)
+    ==4546==    by 0x4071A8: RenderImage (render.c:117)
+    ==4546==    by 0x401AD5: PictureCreate (picture.c:180)
+    ==4546==    by 0x405043: main (proof.c:84)
+    ==4546==
+    picture.tif 0
+    picture.tif 1
+    ...
+    picture.tif 498
+    picture.tif 499
+    ==4546== Syscall param write(buf) points to uninitialised byte(s)
+    ==4546==    at 0x523A290: __write_nocancel (syscall-template.S:84)
+    ==4546==    by 0x40F07A: _tiffWriteProc (tif_unix.c:51)
+    ==4546==    by 0x41482F: TIFFWriteDirectory (tif_dirw.c:320)
+    ==4546==    by 0x40EC87: TIFFFlush (tif_flus.c:42)
+    ==4546==    by 0x416FCB: TIFFClose (tif_clos.c:41)
+    ==4546==    by 0x416524: CloseImage (access.c:83)
+    ==4546==    by 0x401AEC: PictureCreate (picture.c:184)
+    ==4546==    by 0x405043: main (proof.c:84)
+    ==4546==  Address 0x551bf84 is 4 bytes inside a block of size 360 alloc'd
+    ==4546==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+    ==4546==    by 0x40F263: _TIFFmalloc (tif_unix.c:124)
+    ==4546==    by 0x41422C: TIFFWriteDirectory (tif_dirw.c:165)
+    ==4546==    by 0x40EC87: TIFFFlush (tif_flus.c:42)
+    ==4546==    by 0x416FCB: TIFFClose (tif_clos.c:41)
+    ==4546==    by 0x416524: CloseImage (access.c:83)
+    ==4546==    by 0x401AEC: PictureCreate (picture.c:184)
+    ==4546==    by 0x405043: main (proof.c:84)
+    ==4546==
+    Time used by program: 00:00:39
+    ==4546==
+    ==4546== HEAP SUMMARY:
+    ==4546==     in use at exit: 0 bytes in 0 blocks
+    ==4546==   total heap usage: 50 allocs, 50 frees, 64,640 bytes allocated
+    ==4546==
+    ==4546== All heap blocks were freed -- no leaks are possible
+    ==4546==
+
+The first problem is bit wierd and didn't know what it tried to achieve. After
+malloc there was a for-loop checking for null-character in a uninitialized
+memory:
+
+    buffer=(buffer_t) malloc(TIFFScanlineSize(tif));
+    for(i=0;buffer[i]!='\0';i++)
+        buffer[i]=(value_t) 255;
+
+Simply replacing the for-loop with `memset()` fixed the first valgrind issue,
+but this does not fix the picture generation issue. The libtiff is nasty. It
+is riddled with macro soup. The `TIFFWriteDirectory` function is long and needs
+bit of investigation. But that is another story.
